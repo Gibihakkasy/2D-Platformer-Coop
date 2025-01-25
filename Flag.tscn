@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2n4q0caklxco"]
+
+[ext_resource type="Script" path="res://flag.gd" id="1_bqpvw"]
+[ext_resource type="Texture2D" uid="uid://cop47aoytyxtb" path="res://Sprites/Objects/tile_0112.png" id="2_ehppu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ty6a"]
+
+[node name="Flag" type="Area2D"]
+position = Vector2(104, -8)
+script = ExtResource("1_bqpvw")
+next_scene = "res://Coop.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4ty6a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ehppu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

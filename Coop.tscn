@@ -336,16 +336,6 @@ use_kinematic_bodies = true
 script = ExtResource("3_0anec")
 move_direction = Vector2(0, 100)
 
-[node name="Greenman" parent="." instance=ExtResource("5_u45bb")]
-position = Vector2(-71, 25)
-my_name = "Greenman"
-my_sprite = "res://Sprites/Characters/character_0000.png"
-
-[node name="Pinkman" parent="." instance=ExtResource("5_u45bb")]
-position = Vector2(-110, 25)
-my_active_num = 1
-my_sprite = "res://Sprites/Characters/character_0004.png"
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-70, 18)
 zoom = Vector2(3, 3)
@@ -406,3 +396,13 @@ mount_type = "Fast"
 position = Vector2(1, 6)
 scale = Vector2(0.401042, 0.401042)
 texture = ExtResource("11_wwgxh")
+
+[node name="Greenman" parent="." instance=ExtResource("5_u45bb")]
+position = Vector2(-71, 25)
+my_name = "Greenman"
+my_sprite = "res://Sprites/Characters/character_0000.png"
+
+[node name="Pinkman" parent="." instance=ExtResource("5_u45bb")]
+position = Vector2(-110, 25)
+my_active_num = 1
+my_sprite = "res://Sprites/Characters/character_0004.png"

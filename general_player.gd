@@ -19,6 +19,11 @@ var in_use: bool = true
 @export_range(1, 2) var gravity_modifier : float = 1.2
 @export_file("*.png") var my_sprite
 
+#weapon
+@onready var weapon: Node2D = $Weapon
+@onready var weapon_marker: Marker2D = $Weapon/WeaponMarker
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 func _ready() -> void:
 	add_to_group("Player")
 	set_name(my_name)
@@ -44,13 +49,21 @@ func _physics_process(delta):
 		if Input.is_key_pressed(KEY_A):
 			velocity.x -= move_speed
 			sprite_2d.flip_h = false
+			if weapon.position.x > 0:
+				weapon.position.x *= -1
+				weapon.scale.x *= -1
 		if Input.is_key_pressed(KEY_D):
 			velocity.x += move_speed
 			sprite_2d.flip_h = true
+			if weapon.position.x < 0:
+				weapon.position.x *=-1
+				weapon.scale.x *= -1
 		if Input.is_key_pressed(KEY_S):
 			position.y += 1
 		if Input.is_action_just_pressed("ui_select"):
 			jump(delta)
+		if Input.is_action_just_pressed("attack"):
+			attack()
 	elif my_active_num == 1:
 		if Input.is_joy_button_pressed(0, JOY_BUTTON_DPAD_LEFT):
 			velocity.x -= move_speed
@@ -76,6 +89,9 @@ func _physics_process(delta):
 	if global_position.y > 500:
 		game_over()
 
+func attack():
+	animation_player.play("Attack")
+
 func jump(delta):
 	if is_on_floor() or can_coyote_jump:
 		velocity.y = -jump_force
@@ -99,3 +115,7 @@ func _on_coyote_timer_timeout() -> void:
 
 func _on_jump_buffer_timer_timeout() -> void:
 	jump_buffered = false
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	animation_player.play("Idle")

@@ -337,26 +337,25 @@ script = ExtResource("3_0anec")
 move_direction = Vector2(0, 100)
 
 [node name="Greenman" parent="." instance=ExtResource("5_u45bb")]
-position = Vector2(-70, 18)
+position = Vector2(-71, 25)
 my_name = "Greenman"
+my_sprite = "res://Sprites/Characters/character_0000.png"
 
 [node name="Pinkman" parent="." instance=ExtResource("5_u45bb")]
-position = Vector2(-110, 18)
-sprite_file = "res://Sprites/Characters/character_0004.png"
+position = Vector2(-110, 25)
 my_active_num = 1
+my_sprite = "res://Sprites/Characters/character_0004.png"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-physics_interpolation_mode = 1
-position = Vector2(-90, 18)
+position = Vector2(-70, 18)
 zoom = Vector2(3, 3)
 
-[node name="PhantomCamera2D" type="Node2D" parent="Camera2D" node_paths=PackedStringArray("follow_targets")]
+[node name="PhantomCamera2D" type="Node2D" parent="Camera2D"]
 top_level = true
-position = Vector2(-90, 18)
+position = Vector2(-70, 18)
 script = ExtResource("5_cdnqr")
 priority = 10
 follow_mode = 3
-follow_targets = [NodePath("../../Greenman"), NodePath("../../Pinkman")]
 zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_a37wv")
 tween_on_load = false

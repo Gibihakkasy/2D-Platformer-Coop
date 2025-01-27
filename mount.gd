@@ -4,14 +4,12 @@ var gravity : float = 900.0
 var in_use: bool = false
 var rider_number: int
 var can_coyote_jump: bool = false
-var jump_buffered = false
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var rider_container: Node2D = $RiderContainer
 @onready var rider_position: Marker2D = $RiderPosition
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var coyote_timer: Timer = $CoyoteTimer
-@onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var pcam: PhantomCamera2D = get_tree().current_scene.get_node("Camera2D").get_node("PhantomCamera2D")
 
 @export_group("Mount Properties")
@@ -30,7 +28,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		
 	velocity.x = 0
-	get_gravity()
+	
 	if in_use:
 		if rider_number == 0:
 			if Input.is_key_pressed(KEY_A):
@@ -40,7 +38,14 @@ func _physics_process(delta):
 				velocity.x += move_speed
 				sprite.flip_h = true
 			if Input.is_key_pressed(KEY_SPACE):
-				jump()
+				if mount_type == "Fly":
+					velocity.y = -jump_force
+				elif mount_type != "Fly":
+					if is_on_floor() or can_coyote_jump:
+						velocity.y = -jump_force
+						if can_coyote_jump:
+							can_coyote_jump = false
+						
 			if Input.is_key_pressed(KEY_Q):
 				_dismount()
 		elif rider_number == 1:
@@ -51,7 +56,13 @@ func _physics_process(delta):
 				velocity.x += move_speed
 				sprite.flip_h = true
 			if Input.is_joy_button_pressed(0, JOY_BUTTON_A):
-				jump()
+				if mount_type == "Fly":
+					velocity.y = -jump_force
+				elif mount_type != "Fly":
+					if is_on_floor() or can_coyote_jump:
+						velocity.y = -jump_force
+						if can_coyote_jump:
+							can_coyote_jump = false
 			if Input.is_joy_button_pressed(0, JOY_BUTTON_X):
 				_dismount()
 		
@@ -63,20 +74,6 @@ func _physics_process(delta):
 	
 	if global_position.y > 500:
 		game_over()
-
-#damp to make smaller jump for variable jump height, e.g. tap vs hold
-func jump(damp: float = 1):
-	if mount_type == "Fly":
-		velocity.y = -jump_force
-	elif mount_type != "Fly":
-		if is_on_floor() or can_coyote_jump:
-			velocity.y = -jump_force
-			if can_coyote_jump:
-				can_coyote_jump = false
-			else:
-				if !jump_buffered:
-					jump_buffered = true
-					jump_buffer_timer.start()
 
 func game_over():
 	get_tree().reload_current_scene()

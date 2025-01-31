@@ -380,7 +380,7 @@ jump_force = 180.0
 mount_type = "Fly"
 
 [node name="Sprite2D" type="Sprite2D" parent="Charizard Gigantamax"]
-position = Vector2(-3.94737, 5.26315)
+position = Vector2(-2.31481, 4.62963)
 scale = Vector2(0.321428, 0.321428)
 texture = ExtResource("10_0kstp")
 

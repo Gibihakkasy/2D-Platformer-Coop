@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var move_speed : float = 100.0
-var jump_force : float = 250.0
+@export var jump_force : float = 250.0
 var gravity : float = 900.0
 var can_coyote_jump: bool = false
 var jump_buffered = false

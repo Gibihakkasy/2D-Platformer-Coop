@@ -30,7 +30,6 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		
 	velocity.x = 0
-	get_gravity()
 	if in_use:
 		if rider_number == 0:
 			if Input.is_key_pressed(KEY_A):

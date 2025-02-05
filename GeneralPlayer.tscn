@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqwv1v4domusc"]
+[gd_scene load_steps=12 format=3 uid="uid://cqwv1v4domusc"]
 
 [ext_resource type="Script" path="res://general_player.gd" id="1_qcd7i"]
 [ext_resource type="Texture2D" uid="uid://bqb4j84403j2a" path="res://Sprites/Characters/character_0000.png" id="2_7iyv6"]
 [ext_resource type="Texture2D" uid="uid://bes62d3us00rh" path="res://Sprites/Objects/sword.png" id="3_cja6i"]
+[ext_resource type="PackedScene" uid="uid://boluggnnfwfyd" path="res://MovementComponent.tscn" id="4_lb2gl"]
+[ext_resource type="PackedScene" uid="uid://d20djyiumgqre" path="res://JumpComponent.tscn" id="5_u2hgt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4m8m"]
 size = Vector2(14, 20)
@@ -143,13 +145,6 @@ script = ExtResource("1_qcd7i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f4m8m")
 
-[node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
-
-[node name="JumpBufferTimer" type="Timer" parent="."]
-wait_time = 0.1
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.916666, 0.916666)
 texture = ExtResource("2_7iyv6")
@@ -177,6 +172,8 @@ monitoring = false
 position = Vector2(-21.3333, -85.3331)
 shape = SubResource("RectangleShape2D_4u7lq")
 
-[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
-[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
+[node name="MovementComponent" parent="." instance=ExtResource("4_lb2gl")]
+
+[node name="JumpComponent" parent="." instance=ExtResource("5_u2hgt")]
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

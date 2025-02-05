@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://d20djyiumgqre"]
+
+[ext_resource type="Script" path="res://jump_component.gd" id="1_xfi7f"]
+
+[node name="JumpComponent" type="Node2D"]
+script = ExtResource("1_xfi7f")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]

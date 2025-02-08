@@ -23,12 +23,8 @@ func _physics_process(delta):
 		else:
 			controllable_character.velocity.y += gravity * delta * gravity_modifier
 	
-	if controllable_character.my_active_num == 0:
-		if Input.is_action_just_pressed("ui_select"):
-			jump(delta)
-	elif controllable_character.my_active_num == 1:
-		if Input.is_joy_button_pressed(0, JOY_BUTTON_A):
-			jump(delta)
+	if Input.is_action_just_pressed("jump"+str(controllable_character.my_active_num)):
+		jump(delta)
 	
 	controllable_character.move_and_slide()
 	if was_on_floor and !controllable_character.is_on_floor() and controllable_character.velocity.y >= 0:

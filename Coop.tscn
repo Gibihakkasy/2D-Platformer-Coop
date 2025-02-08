@@ -1,12 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://botpcq2d7v885"]
+[gd_scene load_steps=12 format=4 uid="uid://botpcq2d7v885"]
 
 [ext_resource type="Texture2D" uid="uid://biwond464pw3f" path="res://Sprites/Tiles/tiles_packed.png" id="1_jujjq"]
 [ext_resource type="PackedScene" uid="uid://b2n4q0caklxco" path="res://Flag.tscn" id="1_m731j"]
 [ext_resource type="Script" path="res://moving_platform.gd" id="3_0anec"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_cdnqr"]
 [ext_resource type="PackedScene" uid="uid://cqwv1v4domusc" path="res://GeneralPlayer.tscn" id="5_u45bb"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_e4o4w"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_6mn15"]
+[ext_resource type="PackedScene" uid="uid://4o217v3ncfqa" path="res://Camera2D.tscn" id="9_5cc6g"]
 [ext_resource type="Texture2D" uid="uid://b4iw8km8pr0sp" path="res://Sprites/Mount/charizard.png" id="9_yayja"]
 [ext_resource type="Texture2D" uid="uid://c8ubi18n0kpw4" path="res://Sprites/Mount/charizard-gigantamax.png" id="10_0kstp"]
 [ext_resource type="PackedScene" uid="uid://c4cclpkfueica" path="res://GeneralMount.tscn" id="10_6kb8g"]
@@ -305,12 +303,6 @@ tile_size = Vector2i(18, 18)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_m571m")
 
-[sub_resource type="Resource" id="Resource_a37wv"]
-script = ExtResource("6_e4o4w")
-duration = 0.3
-transition = 4
-ease = 2
-
 [node name="Main" type="Node2D"]
 
 [node name="Flag" parent="." instance=ExtResource("1_m731j")]
@@ -335,31 +327,6 @@ tile_set = SubResource("TileSet_7g7l6")
 use_kinematic_bodies = true
 script = ExtResource("3_0anec")
 move_direction = Vector2(0, 100)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-70, 18)
-zoom = Vector2(3, 3)
-
-[node name="PhantomCamera2D" type="Node2D" parent="Camera2D"]
-top_level = true
-position = Vector2(-70, 18)
-script = ExtResource("5_cdnqr")
-priority = 10
-follow_mode = 3
-zoom = Vector2(3, 3)
-tween_resource = SubResource("Resource_a37wv")
-tween_on_load = false
-follow_damping = true
-auto_zoom = true
-auto_zoom_min = 0.5
-auto_zoom_max = 3.0
-auto_zoom_margin = Vector4(50, 50, 50, 50)
-draw_limits = true
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("7_6mn15")
 
 [node name="Charizard" parent="." instance=ExtResource("10_6kb8g")]
 position = Vector2(231, 119)
@@ -400,9 +367,10 @@ texture = ExtResource("11_wwgxh")
 [node name="Greenman" parent="." instance=ExtResource("5_u45bb")]
 position = Vector2(-71, 25)
 my_name = "Greenman"
-my_sprite = "res://Sprites/Characters/character_0000.png"
 
 [node name="Pinkman" parent="." instance=ExtResource("5_u45bb")]
 position = Vector2(-110, 25)
 my_active_num = 1
 my_sprite = "res://Sprites/Characters/character_0004.png"
+
+[node name="Camera2D" parent="." instance=ExtResource("9_5cc6g")]

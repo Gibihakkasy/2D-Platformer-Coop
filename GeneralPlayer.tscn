@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqwv1v4domusc"]
+[gd_scene load_steps=13 format=3 uid="uid://cqwv1v4domusc"]
 
 [ext_resource type="Script" path="res://general_player.gd" id="1_qcd7i"]
 [ext_resource type="Texture2D" uid="uid://bqb4j84403j2a" path="res://Sprites/Characters/character_0000.png" id="2_7iyv6"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d20djyiumgqre" path="res://JumpComponent.tscn" id="5_u2hgt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4m8m"]
-size = Vector2(14, 20)
+size = Vector2(10, 21)
 
 [sub_resource type="Animation" id="Animation_mvcwe"]
 resource_name = "Attack"
@@ -129,11 +129,16 @@ tracks/2/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_y4hpi"]
+resource_name = "Walk"
+step = 0.05
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7557w"]
 _data = {
 "Attack": SubResource("Animation_mvcwe"),
 "Idle": SubResource("Animation_rqq1o"),
-"RESET": SubResource("Animation_4vcg5")
+"RESET": SubResource("Animation_4vcg5"),
+"Walk": SubResource("Animation_y4hpi")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4u7lq"]
@@ -143,6 +148,7 @@ size = Vector2(128, 853.331)
 script = ExtResource("1_qcd7i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_f4m8m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -173,7 +179,9 @@ position = Vector2(-21.3333, -85.3331)
 shape = SubResource("RectangleShape2D_4u7lq")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_lb2gl")]
+move_speed = 80.0
 
 [node name="JumpComponent" parent="." instance=ExtResource("5_u2hgt")]
+jump_force = 200.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
